@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using RepositoryPatternWithUOW.Core.Interfaces;
 using RepositoryPatternWithUOW.EF;
+using RepositoryPatternWithUOW.EF.Repositries;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>
     b=>b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)
     )
     );
+builder.Services.AddTransient<IUnitOfWork,UnitOfWork>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
